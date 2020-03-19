@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '+hbpa5zp2mfo%b#)*p(l!kar$f1e2+^n!uv(7h0mt7%zox_5o#'
-
+ 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'allauth', # new
     'allauth.account', # new
     'allauth.socialaccount', # new
-    'allauth.socialaccount.providers.github', # new
+    
 ]
 
 MIDDLEWARE = [
@@ -153,6 +153,7 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_ID = 1
 
+LOGIN_REDIRECT_URL='/'
 
 
 
