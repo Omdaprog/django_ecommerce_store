@@ -155,5 +155,5 @@ SITE_ID = 1
 
 LOGIN_REDIRECT_URL='/'
 
-
+STRIPE_SECRET_KEY = "sk_test_oOk55lZ12HPahD4yHdqGceIt00fYonbMBH"
 
