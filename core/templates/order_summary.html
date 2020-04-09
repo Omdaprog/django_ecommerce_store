@@ -44,11 +44,18 @@
           </td>
         </tr>
         {% endfor %}
+        {% if object.coupon %}
+        <tr>
+          <td colspan="4" ><b>Coupon</b></td>
+          <td><b>${{ object.coupon.amount }}</b></td>
+        </tr>
+        {% endif %}
+        {% if object.get_total %}
         <tr>
           <td colspan="4" ><b>Order Total</b></td>
           <td><b>${{ object.get_total }}</b></td>
         </tr>
-
+        {% endif %}
         <tr>
           <td colspan="4" >
             <a href="{% url 'core:checkout' %}" class="btn btn-warning float-right ml-2">Proceed to checkout</a>
