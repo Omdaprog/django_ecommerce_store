@@ -15,6 +15,11 @@ LABEL_CHOICES = (
     ('P','primary')
 )
 
+ADDRESS_CHOICES = (
+    ('B','Billing'),
+    ('S','Shipping'),
+)
+
 
 
 class Item(models.Model):
@@ -78,8 +83,10 @@ class Order(models.Model):
     start_date = models.DateTimeField(auto_now_add=True)
     ordered_date = models.DateTimeField()
     ordered = models.BooleanField(default=False)
+    Shipping_adress = models.ForeignKey(
+        'Adress',related_name='shipping_adress', on_delete=models.SET_NULL, blank=True, null=True) 
     billing_adress = models.ForeignKey(
-        'BillingAdress', on_delete=models.SET_NULL, blank=True, null=True) #to know where to send the product
+        'Adress',related_name='billing_adress', on_delete=models.SET_NULL, blank=True, null=True) #to know where to send the product
     payment = models.ForeignKey(
         'Payment', on_delete=models.SET_NULL, blank = True, null=True)
     coupon = models.ForeignKey(
@@ -112,17 +119,20 @@ class Order(models.Model):
     6.Refunds
     '''
 
-class BillingAdress(models.Model):
+class Adress(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE )
     street_adress = models.CharField(max_length=100)
     apartment_adress = models.CharField(max_length=100)
     country = CountryField(multiple = False)
     zip = models.CharField(max_length=100)
-
+    adress_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
+    default = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
 
+    class Meta:
+        verbose_name_plural = 'Adresses'
 
 class Payment(models.Model):
     stripe_charge_id = models.CharField(max_length=50)
