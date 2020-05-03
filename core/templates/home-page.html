@@ -2,14 +2,15 @@
 {% block title %}
 HomePage
 {% endblock title %}
+
 {% block content %}
 {% load cart_template_tags %}
 {% load static %}
 <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
 
-  <div class="container">
+  <div class="container-fluid">
     <div class="row align-items-center">
-      <div class="col-10 col-xl-2">
+      <div class="col-5 col-xl-2">
         <h1 class="mb-0 site-logo"><a href="index.html" class="text-black mb-0">Selling<span
               class="text-primary">.</span> </a></h1>
       </div>
@@ -20,9 +21,21 @@ HomePage
             <li><a href="#home-section" class="nav-link">Home</a></li>
             <li><a href="#products-section" class="nav-link">Products</a></li>
             <li><a href="#about-section" class="nav-link">About Us</a></li>
-            <li><a href="#special-section" class="nav-link">Special</a></li>
             <li><a href="#contact-section" class="nav-link">Contact</a></li>
-            <li><a href="#contact-section" class="nav-link">SingUp</a></li>
+            {% if request.user.is_authenticated %}
+
+            <li><a href="{% url 'core:order-summary' %}" class="nav-link">
+                <span style="background-color: white; color: black;" class=" badge z-depth-1 mr-1">
+                  {{ request.user|cart_item_count }} </span>
+                <i class="fa fa-shopping-cart"></i>
+                <span class="clearfix d-none d-sm-inline-block"> Cart </span>
+              </a></li>
+
+            <li><a href="{% url 'account_logout' %}" class="nav-link">Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'account_signup' %}" class="nav-link">SingUp</a></li>
+            <li><a href="{% url 'account_login' %}" class="nav-link ">Login</a></li>
+            {% endif %}
           </ul>
         </nav>
       </div>
@@ -65,7 +78,7 @@ HomePage
     </div>
   </div>
 
-</header> 
+</header>
 
 
 <div class="site-blocks-cover overlay" style="background-image: url({% static 'images/hero_2.jpg' %})" data-aos="fade"
@@ -272,67 +285,6 @@ HomePage
 </div>
 
 
-
-<div class="site-section border-bottom" id="team-section">
-  <div class="container">
-    <div class="row mb-5">
-      <div class="col-12 text-center">
-        <h3 class="section-sub-title">Team</h3>
-        <h2 class="section-title mb-3">Leadership</h2>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="100">
-        <div class="person text-center">
-          <img src="{% static 'images/person_2.jpg' %}" alt="Image" class="img-fluid rounded w-75 mb-3">
-          <h3>John Rooster</h3>
-          <p class="position text-muted">Co-Founder, President</p>
-          <p class="mb-4">Nisi at consequatur unde molestiae quidem provident voluptatum deleniti quo iste error eos est
-            praesentium distinctio cupiditate tempore suscipit inventore deserunt tenetur.</p>
-          <ul class="ul-social-circle">
-            <li><a href="#"><span class="icon-facebook"></span></a></li>
-            <li><a href="#"><span class="icon-twitter"></span></a></li>
-            <li><a href="#"><span class="icon-linkedin"></span></a></li>
-            <li><a href="#"><span class="icon-instagram"></span></a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="200">
-        <div class="person text-center">
-          <img src="{% static 'images/person_3.jpg' %}" alt="Image" class="img-fluid rounded w-75 mb-3">
-          <h3>Tom Sharp</h3>
-          <p class="position text-muted">Co-Founder, COO</p>
-          <p class="mb-4">Nisi at consequatur unde molestiae quidem provident voluptatum deleniti quo iste error eos est
-            praesentium distinctio cupiditate tempore suscipit inventore deserunt tenetur.</p>
-          <ul class="ul-social-circle">
-            <li><a href="#"><span class="icon-facebook"></span></a></li>
-            <li><a href="#"><span class="icon-twitter"></span></a></li>
-            <li><a href="#"><span class="icon-linkedin"></span></a></li>
-            <li><a href="#"><span class="icon-instagram"></span></a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="300">
-        <div class="person text-center">
-          <img src="{% static 'images/person_4.jpg' %}" alt="Image" class="img-fluid rounded w-75 mb-3">
-          <h3>Winston Hodson</h3>
-          <p class="position text-muted">Marketing</p>
-          <p class="mb-4">Nisi at consequatur unde molestiae quidem provident voluptatum deleniti quo iste error eos est
-            praesentium distinctio cupiditate tempore suscipit inventore deserunt tenetur.</p>
-          <ul class="ul-social-circle">
-            <li><a href="#"><span class="icon-facebook"></span></a></li>
-            <li><a href="#"><span class="icon-twitter"></span></a></li>
-            <li><a href="#"><span class="icon-linkedin"></span></a></li>
-            <li><a href="#"><span class="icon-instagram"></span></a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
 <div class="site-section bg-light" id="services-section">
   <div class="container">
     <div class="row mb-5">
@@ -414,6 +366,69 @@ HomePage
     </div>
   </div>
 </div>
+
+
+<div class="site-section border-bottom" id="team-section">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-12 text-center">
+        <h3 class="section-sub-title">Team</h3>
+        <h2 class="section-title mb-3">Leadership</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="100">
+        <div class="person text-center">
+          <img src="{% static 'images/person_2.jpg' %}" alt="Image" class="img-fluid rounded w-75 mb-3">
+          <h3>John Rooster</h3>
+          <p class="position text-muted">Co-Founder, President</p>
+          <p class="mb-4">Nisi at consequatur unde molestiae quidem provident voluptatum deleniti quo iste error eos est
+            praesentium distinctio cupiditate tempore suscipit inventore deserunt tenetur.</p>
+          <ul class="ul-social-circle">
+            <li><a href="#"><span class="icon-facebook"></span></a></li>
+            <li><a href="#"><span class="icon-twitter"></span></a></li>
+            <li><a href="#"><span class="icon-linkedin"></span></a></li>
+            <li><a href="#"><span class="icon-instagram"></span></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="200">
+        <div class="person text-center">
+          <img src="{% static 'images/person_3.jpg' %}" alt="Image" class="img-fluid rounded w-75 mb-3">
+          <h3>Tom Sharp</h3>
+          <p class="position text-muted">Co-Founder, COO</p>
+          <p class="mb-4">Nisi at consequatur unde molestiae quidem provident voluptatum deleniti quo iste error eos est
+            praesentium distinctio cupiditate tempore suscipit inventore deserunt tenetur.</p>
+          <ul class="ul-social-circle">
+            <li><a href="#"><span class="icon-facebook"></span></a></li>
+            <li><a href="#"><span class="icon-twitter"></span></a></li>
+            <li><a href="#"><span class="icon-linkedin"></span></a></li>
+            <li><a href="#"><span class="icon-instagram"></span></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="300">
+        <div class="person text-center">
+          <img src="{% static 'images/person_4.jpg' %}" alt="Image" class="img-fluid rounded w-75 mb-3">
+          <h3>Winston Hodson</h3>
+          <p class="position text-muted">Marketing</p>
+          <p class="mb-4">Nisi at consequatur unde molestiae quidem provident voluptatum deleniti quo iste error eos est
+            praesentium distinctio cupiditate tempore suscipit inventore deserunt tenetur.</p>
+          <ul class="ul-social-circle">
+            <li><a href="#"><span class="icon-facebook"></span></a></li>
+            <li><a href="#"><span class="icon-twitter"></span></a></li>
+            <li><a href="#"><span class="icon-linkedin"></span></a></li>
+            <li><a href="#"><span class="icon-instagram"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 
 <div class="site-section testimonial-wrap" id="testimonials-section">
   <div class="container">
@@ -619,5 +634,4 @@ HomePage
 </footer>
 
 </div> <!-- .site-wrap -->
-  {% endblock content %}
-  
+{% endblock content %}

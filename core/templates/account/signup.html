@@ -1,0 +1,233 @@
+{% extends "account/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block style %}
+<style type="text/css">
+  .image-container {
+    background: url('image/bg1.jpg') center no-repeat;
+    background-size: cover;
+    height: 100vh;
+  }
+
+  .form-container {
+    background-color: #555555;
+    display: flex;
+    justify-content: center;
+  }
+
+  .form-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .form-box h4 {
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .form-box .form-input {
+    position: relative;
+  }
+
+  .form-box .form-input input {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    background: white;
+    padding-left: 45px;
+  }
+
+  .form-box .form-input span {
+    position: absolute;
+    top: 8px;
+    padding-left: 20px;
+    color: #777;
+  }
+
+  .form-box .form-input input::placeholder {
+    padding-left: 0px;
+  }
+
+  .form-box .form-input input:focus,
+  .form-box .form-input input:valid {
+    border-bottom: 2px solid #dc3545;
+  }
+
+  .form-box input[type="checkbox"]:not(:checked)+label:before {
+    background: transparent;
+    border: 2px solid #fff;
+    width: 15px;
+    height: 15px;
+  }
+
+  .form-box .custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+    background-color: #dc3545;
+    border: 0px;
+  }
+
+  .form-box button[type="submit"] {
+    border: none;
+    cursor: pointer;
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #000;
+    font-weight: bold;
+    transition: 0.5s;
+  }
+
+  .form-box button[type="submit"]:hover {
+    -webkit-box-shadow: 0px 9px 10px -2px rgba(0, 0, 0, 0.55);
+    -moz-box-shadow: 0px 9px 10px -2px rgba(0, 0, 0, 0.55);
+    box-shadow: 0px 9px 10px -2px rgba(0, 0, 0, 0.55);
+  }
+
+  .forget-link,
+  .register-link,
+  .login-link {
+    color: #fff;
+    font-weight: bold;
+  }
+
+  .forget-link:hover,
+  .register-link:hover,
+  .login-link:hover {
+    color: #292525;
+  }
+
+  .form-box .btn-social {
+    color: #fff;
+    border: 0;
+    margin-bottom: 10px;
+  }
+
+  .form-box .btn-facebook {
+    background: #4866a8;
+  }
+
+  .form-box .btn-google {
+    background: #da3f34
+  }
+
+  .form-box .btn-twitter {
+    background: #33ccff;
+  }
+
+  .form-box .btn-facebook:hover {
+    color: #fff;
+    background: #3d5785;
+  }
+
+  .form-box .btn-google:hover {
+    background: #bf3b31;
+    color: #fff;
+  }
+
+  .form-box .btn-twitter:hover {
+    background: #2eb7e5;
+    color: #fff;
+  }
+</style>
+{% endblock style %}
+{% block content %}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-5 col-md-6 form-container">
+      <div class="col-lg-8 col-md-12 col-sm-9 col-xs-12 form-box text-center">
+        <div class="heading mb-3">
+          <h4>Login into your account</h4>
+        </div>
+
+        
+
+        <form class="login" method="POST" action="{% url 'account_login' %}">
+          {% csrf_token %}
+
+          
+
+          <div class="form-input">
+            <span><i class="fa fa-user"></i></span>
+            {{ form.username }}
+          </div>
+
+          <div class="form-input">
+            <span><i class="fa fa-envelope"></i></span>
+            {{ form.email }}
+          </div>
+
+          <div class="form-input">
+            <span><i class="fa fa-lock"></i></span>
+            {{ form.password1 }}
+          </div>
+
+          <div class="form-input">
+            <span><i class="fa fa-lock"></i></span>
+            {{ form.password2 }}
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-6 d-flex">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="cb1">
+                <label class="custom-control-label text-white" for="cb1">I agree all terms & conditions</label>
+                <!-- TODO: style remember form {{form.remember}} -->
+              </div>
+            </div>
+            <div class="col-6 text-right">
+              <a class="forget-link" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+            </div>
+          </div>
+          <div class="text-left mb-3">
+            <button class="btn" type="submit">{% trans "Login" %}</button>
+          </div>
+
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+
+          <div class="text-white mb-3">or login with</div>
+          <div class="row mb-3">
+            <div class="col-4">
+              <a href="" class="btn btn-block btn-social btn-facebook">
+                <i class="fa fa-facebook"></i>
+              </a>
+            </div>
+            <div class="col-4">
+              <a href="" class="btn btn-block btn-social btn-google">
+                <i class="fa fa-google"></i>
+              </a>
+            </div>
+            <div class="col-4">
+              <a href="" class="btn btn-block btn-social btn-twitter">
+                <i class="fa fa-twitter"></i>
+              </a>
+            </div>
+          </div>
+          
+          <div class="text-white">Don't have an account?
+            <a href="{{ login_url }}" class="register-link">Register here</a>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+    <div style="background-image: url({% static 'images/hero_2.jpg' %})"
+      class="col-lg-7 col-md-6 d-none d-md-block image-container"></div>
+  </div>
+</div>
+
+
+
+
+
+{% endblock %}

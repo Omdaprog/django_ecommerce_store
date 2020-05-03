@@ -29,6 +29,7 @@ def is_valid_form(value):
 class CheckoutView(View):
     def get(self, *args, **kwargs):
         try:
+            print(self.request.user)
             order = Order.objects.get(user=self.request.user, ordered = False)
             # form
             form = CheckoutForm()  
@@ -283,6 +284,8 @@ class HomeView(ListView):
     model = Item
     paginate_by = 10
     template_name = "home-page.html"
+
+    
 
 
 class OrderSummaryView(LoginRequiredMixin, View):

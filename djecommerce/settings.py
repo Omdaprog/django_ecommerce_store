@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = '+hbpa5zp2mfo%b#)*p(l!kar$f1e2+^n!uv(7h0mt7%zox_5o#'
  
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -64,7 +64,7 @@ ROOT_URLCONF = 'djecommerce.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -152,7 +152,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SITE_ID = 1
-
+ACCOUNT_LOGOUT_ON_GET = True
 LOGIN_REDIRECT_URL='/'
 
 STRIPE_SECRET_KEY = "sk_test_oOk55lZ12HPahD4yHdqGceIt00fYonbMBH"
