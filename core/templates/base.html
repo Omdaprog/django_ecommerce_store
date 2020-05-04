@@ -46,10 +46,13 @@
         {% endfor %}
         {% endif %}
     </div> -->
+    {% include "navbar_page.html" %}
 
     {% block content %}
     {% endblock content %}
     
+    {% include "footer_page.html" %}
+
 
 
 
@@ -68,7 +71,7 @@
     <script src="{% static 'js/jquery.fancybox.min.js' %}"></script>
     <script src="{% static 'js/jquery.sticky.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
-  {% block extra_scripts %}
-  {% endblock extra_scripts %}
+    {% block extra_scripts %}
+    {% endblock extra_scripts %}
 </body>
 </html>
