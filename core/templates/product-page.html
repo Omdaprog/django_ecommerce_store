@@ -1,57 +1,113 @@
 {% extends 'base.html' %}
-{% load static %}
+
 {%block title%}
-  Product-Page
+Product-Page
 {% endblock title %}
 
 {% block content %}
+{% load static %}
+{% load cart_template_tags %}
+<nav style="background-color: black; " class="site-navbar py-2 js-sticky-header site-navbar-target fixed-top" role="banner"></header>
   
-  <!--Main layout-->
-  <div class="">
-    <div class="container dark-grey-text mt-5">
-
-      <!--Grid row-->
-      <div class="row wow fadeIn">
-
-        <!--Grid column-->
-        <div class="col-md-6 mb-4">
-
-          <img src="{{ object.image.url }}" class="img-fluid" alt="">
-          
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col-5 col-xl-2">
+          <h1 class="mb-0 site-logo"><a href="index.html" class="text-black mb-0">Selling<span
+                class="text-primary">.</span> </a></h1>
         </div>
-        <!--Grid column-->
+        <div class="col-2 col-md-10 d-none d-xl-block">
+          <nav class="site-navigation position-relative text-right" role="navigation">
 
-        <!--Grid column-->
-        <div class="col-md-6 mb-4">
-          <!--Content-->
-          <div class="p-4">
+            <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+              <li><a href="#home-section" class="nav-link">Home</a></li>
+              <li><a href="#products-section" class="nav-link">Products</a></li>
+              <li><a href="#about-section" class="nav-link">About Us</a></li>
+              <li><a href="#contact-section" class="nav-link">Contact</a></li>
+              {% if request.user.is_authenticated %}
+
+              <li><a href="{% url 'core:order-summary' %}" class="nav-link">
+                  <span style="background-color: white; color: black;" class=" badge z-depth-1 mr-1">
+                    {{ request.user|cart_item_count }} </span>
+                  <i class="fa fa-shopping-cart"></i>
+                  <span class="clearfix d-none d-sm-inline-block"> Cart </span>
+                </a></li>
+
+              <li><a href="{% url 'account_logout' %}" class="nav-link">Logout</a></li>
+              {% else %}
+              <li><a href="{% url 'account_signup' %}" class="nav-link">SingUp</a></li>
+              <li><a href="{% url 'account_login' %}" class="nav-link ">Login</a></li>
+              {% endif %}
+            </ul>
+          </nav>
+        </div>
+
+
+
+
+        <div class="col-6 d-inline-block d-xl-none ml-md-0 py-3" style="position: relative; top: 3px;"><a href="#"
+            class="site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a></div>
+
+      </div>
+    </div>
+  </nav>
+
+
+<!--Main layout-->
+<section style="margin-top: 50px;">
+  <div class="container dark-grey-text">
+
+    <!--Grid row-->
+    <div class="row wow fadeIn">
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+
+        <img src="{{ object.image.url }}" class="img-fluid" alt="">
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+        <!--Content-->
+        <div class="p-4">
+
+          <div class="mb-3">
+            
+           
+            <h2 style="color: black;">{{ object.title }}</h2>
 
             <div class="mb-3">
-              <a href="">
-                <span class="badge purple mr-1">{{ object.get_category_display }}</span>
-              </a>
-              <a href="">
-                <span class="badge blue mr-1">New</span>
-              </a>
-              <a href="">
-                <span class="badge red mr-1">{{ object.title }}</span>
-              </a>
+              <span class="meta-icons mr-3"><a href="#" class="mr-2"><span class="icon-star text-warning"></span></a>
+                5.0</span>
+              <span class="meta-icons wishlist"><a href="#" class="mr-2"><span class="icon-heart"></span></a> 29</span>
             </div>
+            
+          </div>
 
-            <p class="lead">
-              {% if object.discount_price %}
-              <span class="mr-1">
-                  <del>${{ object.price }}</del>
-              </span>
-              <span>${{ object.discount_price }}</span>
-              {% else %}
-                ${{object.price}}
-              {% endif %}
+          <p class="lead">
+            <span style="color: black;">Price : </span>
+            {% if object.discount_price %}
+            <span class="mr-1">
+              <del>${{ object.price }}</del>
+            </span>
+            <span>${{ object.discount_price }}</span>
+            {% else %}
+            ${{object.price}}
+            {% endif %}
+          </p>
+          <div class="lead">
+            <p>Category : 
+              <a href="">
+                <span style="background-color: rgb(66, 65, 65); color: white; padding: 8px 10px; border-radius: 10px;" class="badge  mr-1">{{ object.get_category_display }}</span>
+              </a>
             </p>
+          </div>
+            
 
-            <p class="lead font-weight-bold">Description</p>
+          <p class="lead font-weight-bold">Description</p>
 
-            <p>{{object.description}}</p>
+          <p>{{object.description}}</p>
           <!-- 
             <form class="d-flex justify-content-left">
               <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
@@ -60,22 +116,23 @@
               </button>
 
             </form> -->
-            <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p"> Add to cart</a>
-            <a href="{{ object.get_remove_from_cart_url }}" class="btn btn-danger btn-md my-0 p"> remove from cart</a>
-
-          </div>
-          <!--Content-->
+          <a href="{{ object.get_add_to_cart_url }}" style="background-color: black; color: white;" class="btn btn-md my-0 p"> Add to cart</a>
+          
 
         </div>
-        <!--Grid column-->
+        <!--Content-->
 
       </div>
-      <!--Grid row-->
+      <!--Grid column-->
 
-      
-       
     </div>
+    <!--Grid row-->
+
+
+
   </div>
-  <!--Main layout-->
+</section>
+<!--Main layout-->
+<hr style="width: 85%; margin-top: 80px;">
 
 {% endblock content %}
