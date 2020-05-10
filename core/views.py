@@ -37,7 +37,7 @@ class CheckoutView(View):
             'form': form ,
             'order':order,
             'couponform':CouponForm(),
-            'DISPLAY_COUPON_FORM': True
+            'DISPLAY_COUPON_FORM': False
             }
             shippin_address_qd = Adress.objects.filter(
                 user=self.request.user,
@@ -291,9 +291,12 @@ class HomeView(ListView):
 class OrderSummaryView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         try:
+            form = CouponForm()
             order = Order.objects.get(user=self.request.user, ordered=False)
             context = {
-                'object': order
+                'object': order,
+                'couponform':form,
+                'DISPLAY_COUPON_FORM': True
             }
             return render(self.request, 'order_summary.html', context)
         except ObjectDoesNotExist:

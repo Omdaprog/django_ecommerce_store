@@ -1,70 +1,160 @@
 {% extends 'base.html' %}
-
+{%block title%}
+Shopping Cart
+{% endblock title %}
 {% block content %}
-<div class="table-responsive text-nowrap"  >
-  <h2>Order summary</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Item title</th>
-          <th scope="col">Price</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Total Item Price</th>
 
-          
-        </tr>
-      </thead>
-      <tbody>
-        {% for order_item in object.items.all %}
-        <tr>
-          <th scope="row">{{ forloop.counter }}</th>
-          <td>{{ order_item.item.title }}</td>
-          <td>{{ order_item.item.price }}</td>
-          <td>
-            <a href="{% url 'core:remove_item_from_cart' order_item.item.slug %}"><i class="fas fa-minus mr-2"></i></a>
-              {{order_item.quantity}}
-            <a href="{% url 'core:add-to-cart' order_item.item.slug %}"><i class="fas fa-plus-square ml-2"></i></a>
-          </td>
-          <td>${{ order_item.get_final_price }}
-              {%if order_item.item.discount_price%}
-              <span class="badge badge-primary" >Saving ${{ order_item.get_amount_saved }}</span>
-              {% endif %}
-              <a style="color: red;" href="{% url 'core:remove-from-cart' order_item.item.slug %}"><i class="fas fa-trash-alt float-right"></i></a>
-              
-          </td>
-        </tr>
-        {% empty %}
-        <tr>
-          <td colspan="5" >Your cart is empty</td>
-        </tr>
-        <tr>
-          <td colspan="5" >
-            <a href="/" class="btn btn-primary float-right">Continue shopping</a>
-          </td>
-        </tr>
-        {% endfor %}
-        {% if object.coupon %}
-        <tr>
-          <td colspan="4" ><b>Coupon</b></td>
-          <!-- <td><b>${{ object.coupon.amount }}</b></td> -->
-        </tr>
-        {% endif %}
-        {% if object.get_total %}
-        <tr>
-          <td colspan="4" ><b>Order Total</b></td>
-          <td><b>${{ object.get_total }}</b></td>
-        </tr>
-        {% endif %}
-        <tr>
-          <td colspan="4" >
-            <a href="{% url 'core:checkout' %}" class="btn btn-warning float-right ml-2">Proceed to checkout</a>
-            <a href="/" class="btn btn-primary float-right">Continue shopping</a>
-          </td>
-        </tr>
+{% load static %}
+{% load cart_template_tags %}
+<nav style="background-color: black; " class="site-navbar py-2 js-sticky-header site-navbar-target fixed-top"
+  role="banner">
+  </header>
 
-      </tbody>
-    </table>
-  
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col-5 col-xl-2">
+        <h1 class="mb-0 site-logo"><a href="index.html" class="text-black mb-0">Selling<span
+              class="text-primary">.</span> </a></h1>
+      </div>
+      <div class="col-2 col-md-10 d-none d-xl-block">
+        <nav class="site-navigation position-relative text-right" role="navigation">
+
+          <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+            <li><a href="#home-section" class="nav-link">Home</a></li>
+            <li><a href="#products-section" class="nav-link">Products</a></li>
+            <li><a href="#about-section" class="nav-link">About Us</a></li>
+            <li><a href="#contact-section" class="nav-link">Contact</a></li>
+            {% if request.user.is_authenticated %}
+
+            <li><a href="{% url 'core:order-summary' %}" class="nav-link">
+                <span style="background-color: white; color: black;" class=" badge z-depth-1 mr-1">
+                  {{ request.user|cart_item_count }} </span>
+                <i class="fa fa-shopping-cart"></i>
+                <span class="clearfix d-none d-sm-inline-block"> Cart </span>
+              </a></li>
+
+            <li><a href="{% url 'account_logout' %}" class="nav-link">Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'account_signup' %}" class="nav-link">SingUp</a></li>
+            <li><a href="{% url 'account_login' %}" class="nav-link ">Login</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+
+
+
+
+      <div class="col-6 d-inline-block d-xl-none ml-md-0 py-3" style="position: relative; top: 3px;"><a href="#"
+          class="site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a></div>
+
+    </div>
   </div>
+</nav>
+
+<main>
+  <div style="border-bottom: 0.5px solid rgb(226, 226, 226);" class="basket">
+    
+    <div class="basket-labels">
+      <ul>
+        <li class="item item-heading">Item</li>
+        <li class="name">Name</li>
+        <li class="price">Price</li>
+        <li class="quantity">Quantity</li>
+        <li class="subtotal">Total</li>
+      </ul>
+    </div>
+    {% for order_item in object.items.all %}
+    <div class="basket-product">
+      <div class="item">
+        <div class="product-image">
+          <img src="{{ order_item.item.image.url }}" style="width: 130px !important;" height="120" alt="Placholder Image 2" class="product-frame">
+        </div>
+      </div>
+      <div class="product-details ">
+        <h1 class="product-padding">{{ order_item.item.title }}</h1>
+        <p><strong>Heathered Nautical Navy</strong></p>
+        <p>Free shipping + Free returns</p>
+      </div>
+      <div class="price padding">${{ order_item.item.price }}</div>
+      <div class="quantity padding">
+        <a  href="{% url 'core:remove_item_from_cart' order_item.item.slug %}"><ion-icon style="color: #f16821; " name="remove-outline"></ion-icon></ion-icon></a>
+              {{order_item.quantity}}
+        <a href="{% url 'core:add-to-cart' order_item.item.slug %}"><ion-icon style="color: #f16821;" name="add-outline"></ion-icon></i></a>
+      </div>
+      <div class="subtotal padding">
+        ${{ order_item.get_final_price }}
+        {%if order_item.item.discount_price%}
+        <span class="badge badge-primary">Saving ${{ order_item.get_amount_saved }}</span>
+        {% endif %}
+      </div>
+      <div class="remove">
+        <a href="{% url 'core:remove-from-cart' order_item.item.slug %}"><ion-icon name="trash-outline"></ion-icon></a>
+      </div>
+      
+    </div>
+    {% endfor %}
+    <div style="margin-right: 16%;" class="float-right ">
+      <div class="row">
+        <div class="col-9">
+          <p style="text-align: right;">Sub total</p>
+        </div>
+        <div class="col-1">
+          <span style="color: black; text-align: left;">{% if object.get_total %}
+            ${{ object.get_total }}
+            {% else %}
+            $0
+            {% endif %}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-9">
+          <p style="text-align: right;">Shipping Charge</p>
+        </div>
+        <div class="col-1">
+          <span style="color: black;">$0</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-9">
+          <p style="text-align: right;">Sales Tax</p>
+        </div>
+        <div class="col-1">
+          <span style="color: black;">$0</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-9">
+          <p style="text-align: right;">Total Amount</p>
+        </div>
+        <div class="col-1">
+          <span style="color: black;">{% if object.get_total %}
+            ${{ object.get_total }}
+            {% else %}
+            $0
+            {% endif %}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a  href="{% url 'core:checkout' %}" class="btn1 btn float-right ml-2">PLACE ORDER</a>
+  <a  href="{% url 'core:home' %}" class="btn2 btn float-right ml-2">CONTINUE SHOPPING</a>
+  {% if DISPLAY_COUPON_FORM %}
+  <form style="margin-top: 30px;" class="card float-left" action="{% url 'core:add-coupon' %}" method="POST">
+    {% csrf_token %}
+    <div class="input-group">
+      <!-- <input type="text" class="form-control" placeholder="Promo code" aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"> -->
+      {{ couponform.code }}
+      <div class="input-group-append">
+        <button style="background-color: #f16821;" class=" btn  btn-md waves-effect m-0" type="submit">Redeem</button>
+      </div>
+    </div>
+  </form>
+  {% endif %}
+</main>
 {% endblock %}
+
+{% block extra_scripts %}
+
+{% endblock extra_scripts %}
