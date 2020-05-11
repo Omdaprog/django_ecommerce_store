@@ -325,8 +325,7 @@ aside {
   aside,
   .basket,
   .summary,
-  .item,
-  .remove {
+  .item {
     width: 100%;
   }
   .basket-labels {
@@ -337,20 +336,44 @@ aside {
   }
   .item {
     margin-bottom: 1rem;
+    text-align: center;
   }
+
+  
+
+  .remove a .Remove {
+    border-radius: 50%;
+    padding: 5px;
+    border: solid 2px #f16821;
+  }
+
   .product-image {
     width: 40%;
+    text-align: center;
   }
   .product-details {
-    width: 60%;
+    width: 100%;
   }
-  .price,
+  .price{
+    display: none;
+  }
   .subtotal {
-    width: 33%;
+    width: auto;
+    padding-top: 0px !important;
+    position: absolute;
+    bottom: 0;
+  }
+  .subtotal::before {
+    content: 'Total :';
   }
   .quantity {
     text-align: center;
-    width: 34%;
+    width: auto;
+    padding-top: 0px !important;
+    margin-bottom: 20px;
+  }
+  .quantity::before {
+    content: 'quantity :   ';
   }
   .quantity-field {
     float: none;
@@ -359,7 +382,8 @@ aside {
     bottom: 0;
     text-align: left;
     margin-top: 0.75rem;
-    position: relative;
+    position: absolute;
+    right: 20px;
   }
   .remove button {
     padding: 0;
@@ -367,6 +391,12 @@ aside {
   .summary {
     margin-top: 1.25rem;
     position: relative;
+  }
+  .buttons{
+    text-align: center;
+  }
+  footer{
+    text-align: center;
   }
 }
 
@@ -389,3 +419,11 @@ aside {
 }
 
 
+@media screen and (max-width: 320px){
+  .btn1{
+    margin-right: 27%;
+  }
+  .btn2{
+    margin-right: 20%;
+  }
+}

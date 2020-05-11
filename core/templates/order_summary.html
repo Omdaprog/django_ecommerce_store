@@ -89,7 +89,7 @@ Shopping Cart
         {% endif %}
       </div>
       <div class="remove">
-        <a href="{% url 'core:remove-from-cart' order_item.item.slug %}"><ion-icon name="trash-outline"></ion-icon></a>
+        <a href="{% url 'core:remove-from-cart' order_item.item.slug %}"><ion-icon class="Remove" name="trash-outline"></ion-icon></a>
       </div>
       
     </div>
@@ -137,8 +137,11 @@ Shopping Cart
       </div>
     </div>
   </div>
-  <a  href="{% url 'core:checkout' %}" class="btn1 btn float-right ml-2">PLACE ORDER</a>
+  
+  <a  href="{% url 'core:checkout' %}"  class="btn1 btn float-right ml-2">PLACE ORDER</a>
   <a  href="{% url 'core:home' %}" class="btn2 btn float-right ml-2">CONTINUE SHOPPING</a>
+  
+
   {% if DISPLAY_COUPON_FORM %}
   <form style="margin-top: 30px;" class="card float-left" action="{% url 'core:add-coupon' %}" method="POST">
     {% csrf_token %}
