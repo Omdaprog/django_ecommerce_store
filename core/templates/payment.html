@@ -5,6 +5,7 @@ Payment
 {% endblock title %}
 
 {% block extra_head %}
+
 <style>
     #stripeBtnLabel {
         font-family: "Helvetica Neue", Helvetica, sans-serif;
@@ -100,79 +101,52 @@ Payment
 
 
 {% block content %}
-<!-- Navbar -->
-<nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
-    <div class="container">
+{% load cart_template_tags %}
 
-        <!-- Brand -->
-        <a class="navbar-brand waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
-            <strong class="blue-text">MDB</strong>
-        </a>
+<nav style="background-color: black; " class="site-navbar py-2 js-sticky-header site-navbar-target fixed-top"
+  role="banner">
+  </header>
 
-        <!-- Collapse -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col-5 col-xl-2">
+        <h1 class="mb-0 site-logo"><a href="index.html" class="text-black mb-0">Selling<span
+              class="text-primary">.</span> </a></h1>
+      </div>
+      <div class="col-2 col-md-10 d-none d-xl-block">
+        <nav class="site-navigation position-relative text-right" role="navigation">
 
-        <!-- Links -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+            <li><a href="#home-section" class="nav-link">Home</a></li>
+            <li><a href="#products-section" class="nav-link">Products</a></li>
+            <li><a href="#about-section" class="nav-link">About Us</a></li>
+            <li><a href="#contact-section" class="nav-link">Contact</a></li>
+            {% if request.user.is_authenticated %}
 
-            <!-- Left -->
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link waves-effect" href="#">Home
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">About
-                        MDB</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-effect"
-                        href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank">Free
-                        download</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-effect" href="https://mdbootstrap.com/education/bootstrap/"
-                        target="_blank">Free
-                        tutorials</a>
-                </li>
-            </ul>
+            <li><a href="{% url 'core:order-summary' %}" class="nav-link">
+                <span style="background-color: white; color: black;" class=" badge z-depth-1 mr-1">
+                  {{ request.user|cart_item_count }} </span>
+                <i class="fa fa-shopping-cart"></i>
+                <span class="clearfix d-none d-sm-inline-block"> Cart </span>
+              </a></li>
 
-            <!-- Right -->
-            <ul class="navbar-nav nav-flex-icons">
-                <li class="nav-item">
-                    <a class="nav-link waves-effect">
-                        <span class="badge red z-depth-1 mr-1"> 1 </span>
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="clearfix d-none d-sm-inline-block"> Cart </span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://www.facebook.com/mdbootstrap" class="nav-link waves-effect" target="_blank">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://github.com/mdbootstrap/bootstrap-material-design"
-                        class="nav-link border border-light rounded waves-effect" target="_blank">
-                        <i class="fab fa-github mr-2"></i>MDB GitHub
-                    </a>
-                </li>
-            </ul>
+            <li><a href="{% url 'account_logout' %}" class="nav-link">Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'account_signup' %}" class="nav-link">SingUp</a></li>
+            <li><a href="{% url 'account_login' %}" class="nav-link ">Login</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
 
-        </div>
+      <div class="col-6 d-inline-block d-xl-none ml-md-0 py-3" style="position: relative; top: 3px;"><a href="#"
+          class="site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a></div>
 
     </div>
+  </div>
 </nav>
-<!-- Navbar -->
+
+
 <main>
     <div class="container wow fadeIn">
 

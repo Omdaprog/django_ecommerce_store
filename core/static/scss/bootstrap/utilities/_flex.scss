@@ -33,6 +33,8 @@
     .align-items#{$infix}-center   { align-items: center !important; }
     .align-items#{$infix}-baseline { align-items: baseline !important; }
     .align-items#{$infix}-stretch  { align-items: stretch !important; }
+    
+    .text-align#{$infix}-center   { text-align: center !important; }
 
     .align-content#{$infix}-start   { align-content: flex-start !important; }
     .align-content#{$infix}-end     { align-content: flex-end !important; }
