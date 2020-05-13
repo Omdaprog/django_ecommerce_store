@@ -7,7 +7,7 @@ HomePage
 {% load cart_template_tags %}
 {% load static %}
 
-<header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+<header style="z-index: 100;" class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
 
   <div class="container-fluid">
       <div class="row align-items-center">
@@ -15,7 +15,7 @@ HomePage
               <h1 class="mb-0 site-logo"><a href="index.html" class="text-black mb-0">Selling<span
                           class="text-primary">.</span> </a></h1>
           </div>
-          <div class="col-2 col-md-10 d-none d-xl-block">
+          <div class="collapse navbar-collapse col-2 col-md-10  d-xl-block"  id="navbarSupportedContent">
               <nav class="site-navigation position-relative text-right" role="navigation">
 
                   <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
@@ -42,41 +42,13 @@ HomePage
           </div>
 
 
-          <!-- TODO: display number of element in the cart -->
-
-          <!-- <ul class="navbar-nav nav-flex-icons">
-        {% if request.user.is_authenticated %}
-        <li class="nav-item">
-          <a href="{% url 'core:order-summary' %}" class="nav-link waves-effect">
-            <span class="badge red z-depth-1 mr-1"> {{ request.user|cart_item_count }} </span>
-            <i class="fas fa-shopping-cart"></i>
-            <span class="clearfix d-none d-sm-inline-block"> Cart </span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{% url 'account_logout' %}" class="nav-link waves-effect">
-            <span class="clearfix d-none d-sm-inline-block"> Logout </span>
-          </a>
-        </li>
-        {% else %}
-        <li class="nav-item">
-          <a href="{% url 'account_login' %}" class="nav-link waves-effect">
-            <span class="clearfix d-none d-sm-inline-block"> Login </span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{% url 'account_signup' %}" class="nav-link waves-effect">
-            <span class="clearfix d-none d-sm-inline-block"> Signup </span>
-          </a>
-        </li>
-        {% endif %}
-      </ul> -->
-
-
-          <div class="col-6 d-inline-block d-xl-none ml-md-0 py-3" style="position: relative; top: 3px;"><a href="#"
-                  class="site-menu-toggle js-menu-toggle text-black float-right"><span
-                      class="icon-menu h3"></span></a></div>
-
+          <div class="col-6 d-inline-block d-xl-none ml-md-0 py-3" style="position: relative; top: 3px;">
+            <button type="button" style="background-color: rgba(255, 255, 255, 0);" class="navbar-toggler site-menu-toggle js-menu-toggle text-black float-right" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              
+              <span style="font-size: 40px;" class="icon-menu h3"></span>
+              
+            </button>
+          </div>
       </div>
   </div>
 
@@ -208,7 +180,7 @@ HomePage
     <div class="bg-white py-4">
       <div class="row mx-4 my-4 product-item-2 align-items-start">
         <div class="col-md-6 mb-5 mb-md-0 order-1 order-md-2">
-          <img src="{% static 'images/product_1_bg.jpg' %}" alt="Image" class="img-fluid">
+          <img src="{% static 'images/model_1_bg.jpg' %}" alt="Image" class="img-fluid">
         </div>
 
         <div class="col-md-5 mr-auto product-title-wrap order-2 order-md-1">
@@ -474,7 +446,7 @@ HomePage
     <div>
       <div class="testimonial">
         <figure class="mb-4 d-block align-items-center justify-content-center">
-          <div><img src="{% static 'iimages/person_4.jpg' %}" alt="Image" class="w-100 img-fluid mb-3"></div>
+          <div><img src="{% static 'images/person_4.jpg' %}" alt="Image" class="w-100 img-fluid mb-3"></div>
         </figure>
         <blockquote class="mb-3">
           <p>&ldquo;Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur unde reprehenderit aperiam
@@ -585,4 +557,14 @@ HomePage
 {% endblock content %}
 {% block extra_scripts %}
 <script src="{% static 'js/jquery.sticky.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+  </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 {% endblock extra_scripts %}
