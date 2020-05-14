@@ -19,7 +19,7 @@ HomePage
               <nav class="site-navigation position-relative text-right" role="navigation">
 
                   <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                      <li><a href="#home-section" class="nav-link">Home</a></li>
+                      <li><a href="{% url 'core:home' %}" class="nav-link">Home</a></li>
                       <li><a href="#products-section" class="nav-link">Products</a></li>
                       <li><a href="#about-section" class="nav-link">About Us</a></li>
                       <li><a href="#contact-section" class="nav-link">Contact</a></li>
@@ -68,10 +68,10 @@ HomePage
             <p class="mb-5 lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam assumenda ea quo
               cupiditate facere deleniti fuga officia.</p>
             <div>
-              <a href="#"
-                class="btn btn-white btn-outline-white py-3 px-5 rounded-0 mb-lg-0 mb-2 d-block d-sm-inline-block">Shop
+              <a href="#products-section"
+                 class="btn btn-white btn-outline-white py-3 px-5 rounded-0 mb-lg-0 mb-2 d-block d-sm-inline-block">Shop
                 Now</a>
-              <a href="#" class="btn btn-white py-3 px-5 rounded-0 d-block d-sm-inline-block">Club Membership</a>
+              <a   href="#products-section" class="btn btn-white py-3 px-5 rounded-0 d-block d-sm-inline-block">Club Membership</a>
             </div>
           </div>
         </div>
@@ -107,7 +107,7 @@ HomePage
             </div>
             <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
             <div>
-              <a href="#" class="btn btn-black mr-1 rounded-0">Cart</a>
+              <a href="{{ item.get_add_to_cart_url }}" class="btn btn-black mr-1 rounded-0">Cart</a>
               <a href="{{ item.get_absolute_url }}" class="btn btn-black btn-outline-black ml-1 rounded-0">View</a>
             </div>
           </div>
@@ -130,7 +130,7 @@ HomePage
         <h2>Get notified on each updates.</h2>
         <div class="d-flex mb-4">
           <input type="text" class="form-control rounded-0" placeholder="Enter your email address">
-          <input type="submit" class="btn btn-white btn-outline-white rounded-0" value="Subscribe">
+          <input type="submit" class="btn-submit btn-white btn-outline-white rounded-0" value="Subscribe" >
         </div>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat commodi veniam doloremque ducimus tempora.
         </p>
