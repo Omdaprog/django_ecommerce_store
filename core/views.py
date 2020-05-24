@@ -9,7 +9,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CheckoutForm, CouponForm, RefundForm
 import random
-import string
 import stripe
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -456,3 +455,11 @@ class RequestRefundView(View):
             except ObjectDoesNotExist:
                 messages.info(self.request, "This order does not exist.")
                 return redirect("core:request-refund")
+
+
+
+# def sendmail(request):
+#     form = SendMail(request.POST)        
+#     if form.is_valid():
+#         print(form.cleaned_data)
+#     return redirect("/")
