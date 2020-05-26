@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '+hbpa5zp2mfo%b#)*p(l!kar$f1e2+^n!uv(7h0mt7%zox_5o#'
  
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -153,6 +153,14 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 )
+
+
+
+SENDGRID_API_KEY = ''
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+SENDGRID_SANDBOX_MODE_IN_DEBUG=False
+
+
 
 SITE_ID = 1
 ACCOUNT_LOGOUT_ON_GET = True

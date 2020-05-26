@@ -8,6 +8,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CheckoutForm, CouponForm, RefundForm, SendMail
+from django.core.mail import send_mail, BadHeaderError
 import random
 import stripe
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -293,7 +294,15 @@ class HomeView(ListView):
     def post(self, *args, **kwargs):
         form = SendMail(self.request.POST)   
         if form.is_valid():
-            print(form.cleaned_data)
+            first_name = form.cleaned_data["contact_firstname"]
+            last_name = form.cleaned_data["contact_lastname"]
+            email = form.cleaned_data["contact_email"]
+            subject = form.cleaned_data["contact_subject"]
+            message = (f"from {first_name} {last_name} email {email} {subject}")
+            try:
+                send_mail(subject, message,["imedrugby2306@gmail.com"] ,["imedrugby8@gmail.com"], fail_silently=False)
+            except BadHeaderError:
+                messages.warning(self.request, "A serious error occurred . we have been notifed") 
         return redirect("core:home") 
 
     
