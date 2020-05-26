@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import CheckoutForm, CouponForm, RefundForm
+from .forms import CheckoutForm, CouponForm, RefundForm, SendMail
 import random
 import stripe
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -284,6 +284,18 @@ class HomeView(ListView):
     paginate_by = 10
     template_name = "home-page.html"
 
+    def get(self, *args, **kwargs):
+        form = SendMail()   
+        context = {
+            'form': form
+        }
+        return render(self.request,"home-page.html", context)
+    def post(self, *args, **kwargs):
+        form = SendMail(self.request.POST)   
+        if form.is_valid():
+            print(form.cleaned_data)
+        return redirect("core:home") 
+
     
 
 
@@ -457,9 +469,3 @@ class RequestRefundView(View):
                 return redirect("core:request-refund")
 
 
-
-# def sendmail(request):
-#     form = SendMail(request.POST)        
-#     if form.is_valid():
-#         print(form.cleaned_data)
-#     return redirect("/")

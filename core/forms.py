@@ -51,10 +51,10 @@ class RefundForm(forms.Form):
     }))
     email = forms.EmailField()
 
-# class SendMail(forms.Form):
-#     contact_firstname = forms.CharField()
-#     contact_lastname = forms.CharField()
-#     contact_email = forms.EmailField()
-#     contact_subject = forms.CharField()
-#     contact_message = forms.Textarea()
+class SendMail(forms.Form):
+    contact_firstname = forms.CharField()
+    contact_lastname = forms.CharField()
+    contact_email = forms.EmailField()
+    contact_subject = forms.CharField()
+    contact_message = forms.Textarea()
     
