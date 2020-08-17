@@ -7,6 +7,15 @@ HomePage
 {% load cart_template_tags %}
 {% load static %}
 
+<div class="site-mobile-menu site-navbar-target">
+  <div class="site-mobile-menu-header">
+    <div class="site-mobile-menu-close mt-3">
+      <span class="icon-close2 js-menu-toggle"></span>
+    </div>
+  </div>
+  <div class="site-mobile-menu-body"></div>
+</div>
+
 <header style="z-index: 100;" class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
 
   <div class="container-fluid">
@@ -15,7 +24,7 @@ HomePage
               <h1 class="mb-0 site-logo"><a href="index.html" class="text-black mb-0">Selling<span
                           class="text-primary">.</span> </a></h1>
           </div>
-          <div class="collapse navbar-collapse col-2 col-md-10  d-xl-block"  id="navbarSupportedContent">
+          <div class="col-2 col-md-10  d-xl-block" >
               <nav class="site-navigation position-relative text-right" role="navigation">
 
                   <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
@@ -42,13 +51,13 @@ HomePage
           </div>
 
 
-          <div class="col-6 d-inline-block d-xl-none ml-md-0 py-3" style="position: relative; top: 3px;">
-            <button type="button" style="background-color: rgba(255, 255, 255, 0);" class="navbar-toggler site-menu-toggle js-menu-toggle text-black float-right" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              
-              <span style="font-size: 40px;" class="icon-menu h3"></span>
-              
-            </button>
+          <div class="col-5 d-inline-block d-xl-none ml-md-0 py-3" style="position: relative; top: 3px;">
+            <a href="#" class="site-menu-toggle js-menu-toggle text-black float-right">
+              <span class="icon-menu h3"></span>
+            </a>
           </div>
+
+
       </div>
   </div>
 

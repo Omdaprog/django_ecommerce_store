@@ -27,7 +27,7 @@
     {% block style %}
     {% endblock style %}
 </head>
-<body>
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
     <div>
         {% if messages %}
         {% for message in messages %}
@@ -64,8 +64,9 @@
     <script src="{% static 'js/aos.js' %}"></script>
     <script src="{% static 'js/jquery.fancybox.min.js' %}"></script>
     <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+    <script src="{% static 'js/jquery.sticky.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+</body>
     {% block extra_scripts %}
     {% endblock extra_scripts %}
-</body>
 </html>
